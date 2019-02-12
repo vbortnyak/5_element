@@ -12,4 +12,6 @@ sed -i '1 i #!/bin/bash' script
 
 chmod +x ./script
 
+echo "Run the script"
+
 ./script
