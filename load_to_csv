@@ -1,10 +1,14 @@
 #!/bin/bash
 
+DB_NAME="patiomiks"
+DB_USER="sa"
+DB_PASS="12qwasZX"
+
 echo "Load from MS SQL Server to CSV"
 
 echo "Create file for upload"
 
-bcp "SELECT 'bcp \"SELECT * FROM '+schemas.name+'.'+tables.name+'\"'+' queryout '+schemas.name+'.'+tables.name+'.csv -t'';'' -c -S . -d TestDB -U sa -P 12qwasZX' from sys.tables INNER JOIN sys.schemas ON schemas.schema_id = tables.schema_id ORDER BY schemas.name, tables.name" queryout script.csv -t';' -c -S . -d TestDB -U sa -P 12qwasZX
+bcp "SELECT 'bcp \"SELECT * FROM '+schemas.name+'.'+tables.name+'\"'+' queryout '+schemas.name+'.'+tables.name+'.csv -t'';'' -c -S . -d $DB_NAME -U $DB_USER -P $DB_PASS' from sys.tables INNER JOIN sys.schemas ON schemas.schema_id = tables.schema_id ORDER BY schemas.name, tables.name" queryout script.csv -t';' -c -S . -d $DB_NAME -U $DB_USER -P $DB_PASS
 
 mv script.csv script
 
@@ -15,3 +19,5 @@ chmod +x ./script
 echo "Run the script"
 
 ./script
+
+rm script
