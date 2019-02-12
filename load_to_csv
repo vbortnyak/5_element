@@ -1,0 +1,15 @@
+#!/bin/bash
+
+echo "Load from MS SQL Server to CSV"
+
+echo "Create file for upload"
+
+bcp "SELECT 'bcp \"SELECT * FROM '+schemas.name+'.'+tables.name+'\"'+' queryout '+schemas.name+'.'+tables.name+'.csv -t'';'' -c -S . -d TestDB -U sa -P 12qwasZX' from sys.tables INNER JOIN sys.schemas ON schemas.schema_id = tables.schema_id ORDER BY schemas.name, tables.name" queryout script.csv -t';' -c -S . -d TestDB -U sa -P 12qwasZX
+
+mv script.csv script
+
+sed -i '1 i #!/bin/bash' script
+
+chmod +x ./script
+
+./script
